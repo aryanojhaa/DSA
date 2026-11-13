@@ -14,4 +14,5 @@ class Solution:
             dp[amount] = ans
             return ans
         result = solve(amount)
+
         return -1 if result == float('inf') else result
