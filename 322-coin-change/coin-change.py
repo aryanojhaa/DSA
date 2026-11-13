@@ -1,18 +1,9 @@
 class Solution:
     def coinChange(self, coins, amount):
-        dp = [-1] * (amount + 1)
-        def solve(amount):
-            if amount == 0:
-                return 0
-            if amount < 0:
-                return float('inf')
-            if dp[amount] != -1:
-                return dp[amount]
-            ans = float('inf')
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0
+        for i in range(1, amount + 1):
             for coin in coins:
-                ans = min(ans, 1 + solve(amount - coin))
-            dp[amount] = ans
-            return ans
-        result = solve(amount)
-
-        return -1 if result == float('inf') else result
+                if i >= coin:
+                    dp[i] = min(dp[i], 1 + dp[i - coin])
+        return -1 if dp[amount] == float('inf') else dp[amount]
